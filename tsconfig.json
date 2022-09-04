@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "lib": ["ES2016"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "rootDir": "src",
+    "strict": true,
+    "strictNullChecks": true,
+    "stripInternal": true,
+    "target": "ES2016",
+  },
+  "include": ["src"],
+  "exclude": [
+    "./dist",
+    "./docs",
+    "./package.json",
+    "node_modules"
+  ]
+}
