@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "declaration": true,
+    "sourceMap": true,
+    "noEmit": false
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.mock.ts",
+    "test/**"
+  ]
+}

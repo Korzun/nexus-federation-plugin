@@ -1,0 +1,26 @@
+# Distribution
+dist/
+
+# Cache
+/cache/
+
+# Dependency directories
+node_modules/
+
+# Environment
+.vscode/
+*.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Mac
+.DS_Store
+
+# Tests
+test/cache
+test/coverage
+coverage/
+junit.xml

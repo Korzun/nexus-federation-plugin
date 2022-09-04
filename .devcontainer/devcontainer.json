@@ -1,0 +1,29 @@
+{
+	"name": "@korzun/nexus-federation-plugin",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": { 
+			"VARIANT": "16-bullseye"
+		}
+	},
+	"settings": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true,
+			"source.fixAll.markdownlint": true
+		}
+	},
+	"extensions": [
+		"davidanson.vscode-markdownlint",
+		"dbaeumer.vscode-eslint",
+		"graphql.vscode-graphql",
+		"hbenl.vscode-test-explorer",
+		"kavod-io.vscode-jest-test-adapter",
+		"ms-vscode.test-adapter-converter",
+		"streetsidesoftware.code-spell-checker"
+	],
+	"postCreateCommand": "npm ci",
+	"remoteUser": "node",
+	"features": {
+		"git": "latest"
+	}
+}
