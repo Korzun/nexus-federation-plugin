@@ -28,7 +28,7 @@
     "src"
   ],
   "homepage": "https://github.com/Korzun/nexus-federation-plugin#readme",
-  "main": "dist/cjs/index.js",
+  "main": "dist/cjs",
   "types": "dist/cjs/index.d.ts",
   "module": "dist/esm",
   "repository": {
