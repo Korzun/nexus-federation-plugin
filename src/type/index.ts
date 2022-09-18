@@ -1,4 +1,4 @@
-import { create as createTypeBuilder } from '../builder';
+import { create as createTypeBuilder, PluginTypes } from '../builder';
 
 import {
   create as createExternalType,
@@ -42,16 +42,21 @@ export type CreateOptions = ExternalTypeCreateOptions &
   RequiresTypeCreateOptions &
   ShareableTypeCreateOptions;
 
-export const create = (options: CreateOptions = {}) => {
-  const typeBuilder = createTypeBuilder();
-  // Order of operations is important
-  createFieldSetType(typeBuilder, options);
-  createExternalType(typeBuilder, options);
-  createInaccessibleType(typeBuilder, options);
-  createKeysType(typeBuilder, options);
-  createOverrideType(typeBuilder, options);
-  createProvidesType(typeBuilder, options);
-  createRequiresType(typeBuilder, options);
-  createShareableType(typeBuilder, options);
-  return typeBuilder.build();
+export const create = (options: CreateOptions = {}): PluginTypes => {
+  // Order of operations is important `createFieldSetType` is used
+  // by other types, so it must come first
+  return [
+    createFieldSetType,
+    createExternalType,
+    createInaccessibleType,
+    createKeysType,
+    createOverrideType,
+    createProvidesType,
+    createRequiresType,
+    createShareableType,
+  ]
+    .reduce((typeBuilder, create) => {
+      return create(typeBuilder, options);
+    }, createTypeBuilder())
+    .build();
 };
