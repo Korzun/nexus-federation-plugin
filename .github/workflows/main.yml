@@ -48,3 +48,20 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run lint:typescript
+  release-canary:
+    if: github.event.pull_request.merged == true
+    needs: [test, lint-code, lint-markdown, lint-typescript]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+      - run: npm ci
+      - name: Release Canary
+        env:
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          npm run release:preview -- --json > result.json
+          jq '.' < result.json
