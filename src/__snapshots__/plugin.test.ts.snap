@@ -7,6 +7,8 @@ exports[`plugin \`enableKeyOnInterface\` configured to \`false\` generates the s
 
 directive @external on FIELD_DEFINITION
 
+directive @inaccessible on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
+
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
 directive @override(from: String!) on FIELD_DEFINITION
@@ -45,10 +47,13 @@ exports[`plugin \`enableKeyOnInterface\` configured to \`false\` generates typeg
 
 
 import type { FederationExternalField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/external/field\\"
+import type { FederationInaccessibleField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/field\\"
 import type { FederationOverrideField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/override/field\\"
 import type { FederationProvidesField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/provides/field\\"
 import type { FederationRequiresField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/requires/field\\"
 import type { FederationShareableField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/field\\"
+import type { FederationInaccessibleInputField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/input-field\\"
+import type { FederationInaccessibleObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/object\\"
 import type { FederationKeysObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/keys/object\\"
 import type { FederationShareableObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/object\\"
 
@@ -154,10 +159,12 @@ export type NexusGenScalarNames = keyof NexusGenScalars;
 
 export type NexusGenUnionNames = never;
 
-export type NexusGenDirectives = \\"external\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
+export type NexusGenDirectives = \\"external\\" | \\"inaccessible\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
 
 export interface NexusGenDirectiveArgs {
   external: {
+  }
+  inaccessible: {
   }
   key: {
     fields:NexusGenScalars['_FieldSet']; // _FieldSet!
@@ -218,6 +225,30 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+    /**
+     * Indicates that an **object** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **object** to your remaining
+     * subgraphs. You can remove the \`@inaccessible\` directive when the
+     * rollout is complete and begin using the **object**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * inaccessible: true
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleObject
     /**
      * Indicates a combination of fields that can be used to
      * uniquely identify and fetch an object or interface.
@@ -280,6 +311,30 @@ declare global {
      * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
+    /**
+     * Indicates that a **field** within the schema is inaccessible. Inaccessible
+     * elements are available to query at the subgraph level but are not
+     * available to query at the supergraph level (through the router or
+     * gateway). This directive enables you to preserve composition while
+     * adding the **field** to your remaining subgraphs. You can remove the
+     * \`@inaccessible\` directive when the rollout is complete and begin
+     * using the **field**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true }); // inaccessible
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleField
     /**
      * Indicates that the current subgraph is taking responsibility
      * for resolving the marked field away from the subgraph
@@ -391,7 +446,28 @@ declare global {
     shareable?: FederationShareableField
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-    
+    /**
+     * Indicates that an **input field** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **input field** to your
+     * remaining subgraphs. You can remove the \`@inaccessible\` directive
+     * when the rollout is complete and begin using the **input field**.
+     * \`\`\`ts
+     * inputObjectType({
+     * name: 'CreateProductInput',
+     * definition: (t) => {
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true });
+     * },
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleInputField
   }
   interface NexusGenPluginSchemaConfig {
   }
@@ -407,6 +483,8 @@ exports[`plugin \`enableKeyOnInterface\` configured to \`true\` generates the sc
 
 
 directive @external on FIELD_DEFINITION
+
+directive @inaccessible on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
 
 directive @key(fields: _FieldSet!) repeatable on INTERFACE | OBJECT
 
@@ -446,10 +524,13 @@ exports[`plugin \`enableKeyOnInterface\` configured to \`true\` generates typege
 
 
 import type { FederationExternalField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/external/field\\"
+import type { FederationInaccessibleField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/field\\"
 import type { FederationOverrideField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/override/field\\"
 import type { FederationProvidesField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/provides/field\\"
 import type { FederationRequiresField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/requires/field\\"
 import type { FederationShareableField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/field\\"
+import type { FederationInaccessibleInputField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/input-field\\"
+import type { FederationInaccessibleObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/object\\"
 import type { FederationKeysObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/keys/object\\"
 import type { FederationShareableObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/object\\"
 
@@ -555,10 +636,12 @@ export type NexusGenScalarNames = keyof NexusGenScalars;
 
 export type NexusGenUnionNames = never;
 
-export type NexusGenDirectives = \\"external\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
+export type NexusGenDirectives = \\"external\\" | \\"inaccessible\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
 
 export interface NexusGenDirectiveArgs {
   external: {
+  }
+  inaccessible: {
   }
   key: {
     fields:NexusGenScalars['_FieldSet']; // _FieldSet!
@@ -619,6 +702,30 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+    /**
+     * Indicates that an **object** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **object** to your remaining
+     * subgraphs. You can remove the \`@inaccessible\` directive when the
+     * rollout is complete and begin using the **object**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * inaccessible: true
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleObject
     /**
      * Indicates a combination of fields that can be used to
      * uniquely identify and fetch an object or interface.
@@ -681,6 +788,30 @@ declare global {
      * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
+    /**
+     * Indicates that a **field** within the schema is inaccessible. Inaccessible
+     * elements are available to query at the subgraph level but are not
+     * available to query at the supergraph level (through the router or
+     * gateway). This directive enables you to preserve composition while
+     * adding the **field** to your remaining subgraphs. You can remove the
+     * \`@inaccessible\` directive when the rollout is complete and begin
+     * using the **field**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true }); // inaccessible
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleField
     /**
      * Indicates that the current subgraph is taking responsibility
      * for resolving the marked field away from the subgraph
@@ -792,7 +923,28 @@ declare global {
     shareable?: FederationShareableField
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-    
+    /**
+     * Indicates that an **input field** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **input field** to your
+     * remaining subgraphs. You can remove the \`@inaccessible\` directive
+     * when the rollout is complete and begin using the **input field**.
+     * \`\`\`ts
+     * inputObjectType({
+     * name: 'CreateProductInput',
+     * definition: (t) => {
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true });
+     * },
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleInputField
   }
   interface NexusGenPluginSchemaConfig {
   }
@@ -808,6 +960,8 @@ exports[`plugin \`prefixFieldSet\` configured to \`false\` generates the schema 
 
 
 directive @external on FIELD_DEFINITION
+
+directive @inaccessible on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
 
 directive @key(fields: FieldSet!) repeatable on OBJECT
 
@@ -847,10 +1001,13 @@ exports[`plugin \`prefixFieldSet\` configured to \`false\` generates typegen wit
 
 
 import type { FederationExternalField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/external/field\\"
+import type { FederationInaccessibleField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/field\\"
 import type { FederationOverrideField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/override/field\\"
 import type { FederationProvidesField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/provides/field\\"
 import type { FederationRequiresField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/requires/field\\"
 import type { FederationShareableField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/field\\"
+import type { FederationInaccessibleInputField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/input-field\\"
+import type { FederationInaccessibleObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/object\\"
 import type { FederationKeysObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/keys/object\\"
 import type { FederationShareableObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/object\\"
 
@@ -956,10 +1113,12 @@ export type NexusGenScalarNames = keyof NexusGenScalars;
 
 export type NexusGenUnionNames = never;
 
-export type NexusGenDirectives = \\"external\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
+export type NexusGenDirectives = \\"external\\" | \\"inaccessible\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
 
 export interface NexusGenDirectiveArgs {
   external: {
+  }
+  inaccessible: {
   }
   key: {
     fields:NexusGenScalars['FieldSet']; // FieldSet!
@@ -1020,6 +1179,30 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+    /**
+     * Indicates that an **object** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **object** to your remaining
+     * subgraphs. You can remove the \`@inaccessible\` directive when the
+     * rollout is complete and begin using the **object**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * inaccessible: true
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleObject
     /**
      * Indicates a combination of fields that can be used to
      * uniquely identify and fetch an object or interface.
@@ -1082,6 +1265,30 @@ declare global {
      * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
+    /**
+     * Indicates that a **field** within the schema is inaccessible. Inaccessible
+     * elements are available to query at the subgraph level but are not
+     * available to query at the supergraph level (through the router or
+     * gateway). This directive enables you to preserve composition while
+     * adding the **field** to your remaining subgraphs. You can remove the
+     * \`@inaccessible\` directive when the rollout is complete and begin
+     * using the **field**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true }); // inaccessible
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleField
     /**
      * Indicates that the current subgraph is taking responsibility
      * for resolving the marked field away from the subgraph
@@ -1193,7 +1400,28 @@ declare global {
     shareable?: FederationShareableField
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-    
+    /**
+     * Indicates that an **input field** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **input field** to your
+     * remaining subgraphs. You can remove the \`@inaccessible\` directive
+     * when the rollout is complete and begin using the **input field**.
+     * \`\`\`ts
+     * inputObjectType({
+     * name: 'CreateProductInput',
+     * definition: (t) => {
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true });
+     * },
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleInputField
   }
   interface NexusGenPluginSchemaConfig {
   }
@@ -1209,6 +1437,8 @@ exports[`plugin \`prefixFieldSet\` configured to \`true\` generates the schema w
 
 
 directive @external on FIELD_DEFINITION
+
+directive @inaccessible on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
 
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
@@ -1248,10 +1478,13 @@ exports[`plugin \`prefixFieldSet\` configured to \`true\` generates typegen with
 
 
 import type { FederationExternalField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/external/field\\"
+import type { FederationInaccessibleField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/field\\"
 import type { FederationOverrideField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/override/field\\"
 import type { FederationProvidesField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/provides/field\\"
 import type { FederationRequiresField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/requires/field\\"
 import type { FederationShareableField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/field\\"
+import type { FederationInaccessibleInputField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/input-field\\"
+import type { FederationInaccessibleObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/object\\"
 import type { FederationKeysObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/keys/object\\"
 import type { FederationShareableObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/object\\"
 
@@ -1357,10 +1590,12 @@ export type NexusGenScalarNames = keyof NexusGenScalars;
 
 export type NexusGenUnionNames = never;
 
-export type NexusGenDirectives = \\"external\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
+export type NexusGenDirectives = \\"external\\" | \\"inaccessible\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
 
 export interface NexusGenDirectiveArgs {
   external: {
+  }
+  inaccessible: {
   }
   key: {
     fields:NexusGenScalars['_FieldSet']; // _FieldSet!
@@ -1421,6 +1656,30 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+    /**
+     * Indicates that an **object** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **object** to your remaining
+     * subgraphs. You can remove the \`@inaccessible\` directive when the
+     * rollout is complete and begin using the **object**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * inaccessible: true
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleObject
     /**
      * Indicates a combination of fields that can be used to
      * uniquely identify and fetch an object or interface.
@@ -1483,6 +1742,30 @@ declare global {
      * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
+    /**
+     * Indicates that a **field** within the schema is inaccessible. Inaccessible
+     * elements are available to query at the subgraph level but are not
+     * available to query at the supergraph level (through the router or
+     * gateway). This directive enables you to preserve composition while
+     * adding the **field** to your remaining subgraphs. You can remove the
+     * \`@inaccessible\` directive when the rollout is complete and begin
+     * using the **field**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true }); // inaccessible
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleField
     /**
      * Indicates that the current subgraph is taking responsibility
      * for resolving the marked field away from the subgraph
@@ -1594,7 +1877,28 @@ declare global {
     shareable?: FederationShareableField
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-    
+    /**
+     * Indicates that an **input field** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **input field** to your
+     * remaining subgraphs. You can remove the \`@inaccessible\` directive
+     * when the rollout is complete and begin using the **input field**.
+     * \`\`\`ts
+     * inputObjectType({
+     * name: 'CreateProductInput',
+     * definition: (t) => {
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true });
+     * },
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleInputField
   }
   interface NexusGenPluginSchemaConfig {
   }
@@ -1610,6 +1914,8 @@ exports[`plugin default config generates the schema 1`] = `
 
 
 directive @external on FIELD_DEFINITION
+
+directive @inaccessible on ARGUMENT_DEFINITION | ENUM | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | INPUT_OBJECT | INTERFACE | OBJECT | SCALAR | UNION
 
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
@@ -1649,10 +1955,13 @@ exports[`plugin default config generates typegen 1`] = `
 
 
 import type { FederationExternalField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/external/field\\"
+import type { FederationInaccessibleField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/field\\"
 import type { FederationOverrideField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/override/field\\"
 import type { FederationProvidesField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/provides/field\\"
 import type { FederationRequiresField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/requires/field\\"
 import type { FederationShareableField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/field\\"
+import type { FederationInaccessibleInputField } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/input-field\\"
+import type { FederationInaccessibleObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/inaccessible/object\\"
 import type { FederationKeysObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/keys/object\\"
 import type { FederationShareableObject } from \\"@korzun/nexus-federation-plugin/dist/esm/type/shareable/object\\"
 
@@ -1758,10 +2067,12 @@ export type NexusGenScalarNames = keyof NexusGenScalars;
 
 export type NexusGenUnionNames = never;
 
-export type NexusGenDirectives = \\"external\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
+export type NexusGenDirectives = \\"external\\" | \\"inaccessible\\" | \\"key\\" | \\"override\\" | \\"provides\\" | \\"requires\\" | \\"shareable\\"
 
 export interface NexusGenDirectiveArgs {
   external: {
+  }
+  inaccessible: {
   }
   key: {
     fields:NexusGenScalars['_FieldSet']; // _FieldSet!
@@ -1822,6 +2133,30 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+    /**
+     * Indicates that an **object** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **object** to your remaining
+     * subgraphs. You can remove the \`@inaccessible\` directive when the
+     * rollout is complete and begin using the **object**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * inaccessible: true
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleObject
     /**
      * Indicates a combination of fields that can be used to
      * uniquely identify and fetch an object or interface.
@@ -1884,6 +2219,30 @@ declare global {
      * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
+    /**
+     * Indicates that a **field** within the schema is inaccessible. Inaccessible
+     * elements are available to query at the subgraph level but are not
+     * available to query at the supergraph level (through the router or
+     * gateway). This directive enables you to preserve composition while
+     * adding the **field** to your remaining subgraphs. You can remove the
+     * \`@inaccessible\` directive when the rollout is complete and begin
+     * using the **field**.
+     * \`\`\`ts
+     * objectType({
+     * name: 'Product',
+     * definition: (t) =>
+     * {
+     * t.id('id');
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true }); // inaccessible
+     * }
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleField
     /**
      * Indicates that the current subgraph is taking responsibility
      * for resolving the marked field away from the subgraph
@@ -1995,7 +2354,28 @@ declare global {
     shareable?: FederationShareableField
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
-    
+    /**
+     * Indicates that an **input field** within the schema is inaccessible.
+     * Inaccessible elements are available to query at the subgraph
+     * level but are not available to query at the supergraph level
+     * (through the router or gateway). This directive enables you
+     * to preserve composition while adding the **input field** to your
+     * remaining subgraphs. You can remove the \`@inaccessible\` directive
+     * when the rollout is complete and begin using the **input field**.
+     * \`\`\`ts
+     * inputObjectType({
+     * name: 'CreateProductInput',
+     * definition: (t) => {
+     * t.nullable.string('sku');
+     * t.nullable.string('package');
+     * t.nullable.field('createdBy', { type: 'User' });
+     * t.nullable.string('hidden', { inaccessible: true });
+     * },
+     * });
+     * \`\`\`
+     * [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
+     */
+    inaccessible?: FederationInaccessibleInputField
   }
   interface NexusGenPluginSchemaConfig {
   }

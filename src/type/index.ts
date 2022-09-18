@@ -9,6 +9,10 @@ import {
   CreateOptions as FieldSetTypeCreateOptions,
 } from './field-set';
 import {
+  create as createInaccessibleType,
+  CreateOptions as InaccessibleTypeCreateOptions,
+} from './inaccessible';
+import {
   create as createKeysType,
   CreateOptions as KeysTypeCreateOptions,
 } from './keys';
@@ -31,6 +35,7 @@ import {
 
 export type CreateOptions = ExternalTypeCreateOptions &
   FieldSetTypeCreateOptions &
+  InaccessibleTypeCreateOptions &
   KeysTypeCreateOptions &
   OverrideTypeCreateOptions &
   ProvidesTypeCreateOptions &
@@ -42,6 +47,7 @@ export const create = (options: CreateOptions = {}) => {
   // Order of operations is important
   createFieldSetType(typeBuilder, options);
   createExternalType(typeBuilder, options);
+  createInaccessibleType(typeBuilder, options);
   createKeysType(typeBuilder, options);
   createOverrideType(typeBuilder, options);
   createProvidesType(typeBuilder, options);
