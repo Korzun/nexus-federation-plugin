@@ -11,7 +11,7 @@ export const directive = ({ prefixFieldset = true }: Options = {}) =>
     name: 'requires',
     locations: ['FIELD_DEFINITION'],
     args: {
-      fields: nonNull(arg({ type: fieldSet.model({ prefixFieldset }) })),
+      fields: nonNull(arg({ type: fieldSet.getModelName(prefixFieldset) })),
     },
     description: `
       **Apollo Federation 2.0 Subgraph**
