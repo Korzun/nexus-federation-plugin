@@ -8,7 +8,7 @@ export const directive = (options?: Options) =>
     locations: ['FIELD_DEFINITION'],
     description: `
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#external
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
 
       Marks a field as owned by another service. This allows
       \`Service A\` to use fields from \`Service B\` while also

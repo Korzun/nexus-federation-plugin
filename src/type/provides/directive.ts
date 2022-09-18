@@ -15,7 +15,7 @@ export const directive = ({ prefixFieldset }: Options = {}) =>
     },
     description: `
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#provides
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
       
       Annotates the expected returned fieldset from a
       field on a base type that is guaranteed to be selectable

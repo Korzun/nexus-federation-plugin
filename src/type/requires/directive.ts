@@ -15,7 +15,7 @@ export const directive = ({ prefixFieldset = true }: Options = {}) =>
     },
     description: `
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#requires
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
       
       Annotates the required input fieldset from a base
       type for a resolver. It is used to develop a query plan

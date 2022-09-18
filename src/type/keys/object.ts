@@ -19,13 +19,13 @@ export const object = (options?: Options) =>
         name: 'User',
         keys: ['id'],
         definition(t) {
-          t.id('id');
+          t.id('id');             // shareable because id is a key field
           t.string('name');
         },
       });
       \`\`\`
 
-      [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+      [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
     `,
     imports: [
       core.printedGenTypingImport({

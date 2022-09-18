@@ -8,7 +8,7 @@ exports[`requires field configuration is NOT present is correctly added to the s
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#requires
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
       
       Annotates the required input fieldset from a base
       type for a resolver. It is used to develop a query plan
@@ -54,7 +54,7 @@ type User {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -233,7 +233,7 @@ declare global {
      * know the email of the User from the Users service in order to
      * look up the reviews. This means the reviews field / resolver
      * requires the email field from the base User type.
-     * [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#requires)
+     * [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires)
      */
     requires?: FederationRequiresField<TypeName>
   }
@@ -256,7 +256,7 @@ exports[`requires field configuration is present is correctly added to the schem
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#requires
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
       
       Annotates the required input fieldset from a base
       type for a resolver. It is used to develop a query plan
@@ -302,7 +302,7 @@ type User {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -481,7 +481,7 @@ declare global {
      * know the email of the User from the Users service in order to
      * look up the reviews. This means the reviews field / resolver
      * requires the email field from the base User type.
-     * [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#requires)
+     * [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires)
      */
     requires?: FederationRequiresField<TypeName>
   }
@@ -504,7 +504,7 @@ exports[`requires is correctly added to schema 1`] = `
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#requires
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
       
       Annotates the required input fieldset from a base
       type for a resolver. It is used to develop a query plan
@@ -544,7 +544,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -708,7 +708,7 @@ declare global {
      * know the email of the User from the Users service in order to
      * look up the reviews. This means the reviews field / resolver
      * requires the email field from the base User type.
-     * [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#requires)
+     * [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires)
      */
     requires?: FederationRequiresField<TypeName>
   }

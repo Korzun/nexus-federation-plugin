@@ -8,7 +8,7 @@ exports[`external field configuration is NOT present is correctly added to the s
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#external
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
 
       Marks a field as owned by another service. This allows
       \`Service A\` to use fields from \`Service B\` while also
@@ -207,7 +207,7 @@ declare global {
      * \`User\` type from the \`Users Service\`. It extends it for
      * the purpose of adding a new field \`reviews\`, which returns
      * a list of \`Reviews\`.
-     * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#external)
+     * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
   }
@@ -230,7 +230,7 @@ exports[`external field configuration is present is correctly added to the schem
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#external
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
 
       Marks a field as owned by another service. This allows
       \`Service A\` to use fields from \`Service B\` while also
@@ -429,7 +429,7 @@ declare global {
      * \`User\` type from the \`Users Service\`. It extends it for
      * the purpose of adding a new field \`reviews\`, which returns
      * a list of \`Reviews\`.
-     * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#external)
+     * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
   }
@@ -452,7 +452,7 @@ exports[`external is correctly added to schema 1`] = `
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#external
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
 
       Marks a field as owned by another service. This allows
       \`Service A\` to use fields from \`Service B\` while also
@@ -630,7 +630,7 @@ declare global {
      * \`User\` type from the \`Users Service\`. It extends it for
      * the purpose of adding a new field \`reviews\`, which returns
      * a list of \`Reviews\`.
-     * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#external)
+     * [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
      */
     external?: FederationExternalField
   }

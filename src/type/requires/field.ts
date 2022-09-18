@@ -36,7 +36,7 @@ export const field = (options?: Options) =>
       look up the reviews. This means the reviews field / resolver
       requires the email field from the base User type.
 
-      [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#requires)
+      [Requires - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires)
     `,
     imports: [
       core.printedGenTypingImport({

@@ -8,7 +8,7 @@ export const directive = (options?: Options) =>
     locations: ['FIELD_DEFINITION', 'OBJECT'],
     description: `
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#shareable
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
 
       Indicates that an object type's field is allowed to be resolved
       by multiple subgraphs (by default in Federation 2, object

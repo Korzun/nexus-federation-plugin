@@ -29,7 +29,7 @@ export const field = (options?: Options) =>
       });
       \`\`\`
 
-      [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+      [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
     `,
     imports: [
       core.printedGenTypingImport({

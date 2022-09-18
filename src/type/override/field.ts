@@ -43,7 +43,7 @@ export const field = (options?: Options) =>
       });
       \`\`\`
 
-      [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#override)
+      [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#override)
     `,
     imports: [
       core.printedGenTypingImport({

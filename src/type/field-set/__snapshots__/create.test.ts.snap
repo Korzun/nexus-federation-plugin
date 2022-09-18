@@ -13,7 +13,7 @@ exports[`field set \`prefixFieldset\` configured to \`false\` is added to schema
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar FieldSet
@@ -185,7 +185,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -353,7 +353,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"

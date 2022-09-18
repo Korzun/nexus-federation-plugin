@@ -8,7 +8,7 @@ exports[`provides \`prefixFieldset\` configured to \`false\` is added to schema 
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#provides
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
       
       Annotates the expected returned fieldset from a
       field on a base type that is guaranteed to be selectable
@@ -43,7 +43,7 @@ directive @provides(fields: FieldSet!) on FIELD_DEFINITION
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar FieldSet
@@ -215,7 +215,7 @@ declare global {
      * product. \`Product.name\` is an external field on an external
      * type which is why the local type extension of \`Product\` and
      * annotation of \`name\` is required.
-     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#provides)
+     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides)
      */
     provides?: FederationProvidesField<TypeName, FieldName>
   }
@@ -238,7 +238,7 @@ exports[`provides \`prefixFieldset\` configured to \`true\` is added to schema w
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#provides
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
       
       Annotates the expected returned fieldset from a
       field on a base type that is guaranteed to be selectable
@@ -277,7 +277,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -445,7 +445,7 @@ declare global {
      * product. \`Product.name\` is an external field on an external
      * type which is why the local type extension of \`Product\` and
      * annotation of \`name\` is required.
-     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#provides)
+     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides)
      */
     provides?: FederationProvidesField<TypeName, FieldName>
   }
@@ -468,7 +468,7 @@ exports[`provides default config is added to schema 1`] = `
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#provides
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
       
       Annotates the expected returned fieldset from a
       field on a base type that is guaranteed to be selectable
@@ -507,7 +507,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -675,7 +675,7 @@ declare global {
      * product. \`Product.name\` is an external field on an external
      * type which is why the local type extension of \`Product\` and
      * annotation of \`name\` is required.
-     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#provides)
+     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides)
      */
     provides?: FederationProvidesField<TypeName, FieldName>
   }
@@ -698,7 +698,7 @@ exports[`provides field configuration is NOT present is correctly added to the s
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#provides
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
       
       Annotates the expected returned fieldset from a
       field on a base type that is guaranteed to be selectable
@@ -746,7 +746,7 @@ type Review {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -935,7 +935,7 @@ declare global {
      * product. \`Product.name\` is an external field on an external
      * type which is why the local type extension of \`Product\` and
      * annotation of \`name\` is required.
-     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#provides)
+     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides)
      */
     provides?: FederationProvidesField<TypeName, FieldName>
   }
@@ -958,7 +958,7 @@ exports[`provides field configuration is present is correctly added to the schem
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#provides
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
       
       Annotates the expected returned fieldset from a
       field on a base type that is guaranteed to be selectable
@@ -1006,7 +1006,7 @@ type Review {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -1195,7 +1195,7 @@ declare global {
      * product. \`Product.name\` is an external field on an external
      * type which is why the local type extension of \`Product\` and
      * annotation of \`name\` is required.
-     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#provides)
+     * [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides)
      */
     provides?: FederationProvidesField<TypeName, FieldName>
   }
