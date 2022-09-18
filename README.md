@@ -59,6 +59,13 @@ server.listen().then(({ url }) => {
 });
 ```
 
+## Configuration
+
+| Name/Type      | Description |
+| ----------- | ----------- |
+| `prefixFieldset`<br/>`Boolean`| Some future version of Federation 2.0 specification is going to switch from `_FieldSet` to `FieldSet`. Version 0.8.1 of the Rover CLI throws an error when the underscore prefix is omitted. This configuration allows compatibility with that version, whenever it is released. |
+| `enableKeyOnInterface`<br/>`Boolean` | The Federation 1.0 specification allows `@key` on interfaces. The Federation 2.0 specification does not. This configuration allows for backward compatibility. |
+
 ## Examples
 
 ### External
