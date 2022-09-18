@@ -48,3 +48,12 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run lint:typescript
+  release-canary:
+    if: github.event.pull_request.merged == true
+    needs: [test, lint-code, lint-markdown, lint-typescript]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: prisma-labs/dripip@master
+        with:
+          npmToken: ${{secrets.NPM_TOKEN}}
+          githubToken: ${{secrets.GITHUB_TOKEN}}
