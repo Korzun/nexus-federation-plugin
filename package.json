@@ -72,7 +72,7 @@
     "lint:code": "eslint 'src/**'",
     "lint:git": "npx commitlint --from $(git rev-parse --short $(git rev-list --max-parents=0 HEAD))",
     "lint:markdown": "markdownlint '**/*.md'",
-    "lint:typescript": "npm run build -- --noEmit",
+    "lint:typescript": "tsc -p 'tsconfig.build.cjs.json' --noEmit",
     "lint": "concurrently \"npm:lint:*(!fix)\" -g",
     "prepublish": "npm run build",
     "release:pr": "dripip pr --json",
