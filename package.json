@@ -70,6 +70,7 @@
     "lint:markdown": "markdownlint '**/*.md'",
     "lint:typescript": "npm run build -- --noEmit",
     "lint": "concurrently \"npm:lint:*(!fix)\" -g",
+    "prepublish": "npm run build",
     "release:pr": "dripip pr --json",
     "release:preview": "dripip preview-or-pr --json",
     "release:stable": "dripip stable --json",
