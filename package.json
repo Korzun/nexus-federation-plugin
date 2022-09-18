@@ -73,7 +73,7 @@
     "release:pr": "dripip pr",
     "release:preview": "dripip preview",
     "release:stable": "dripip stable",
-    "test:ci": "npm run test -- --maxWorkers 2 --coverage --ci --reporters=default --reporters=jest-junit",
+    "test:ci": "npm run test -- --maxWorkers 2 --coverage --ci --reporters=default",
     "test:watch": "npm run test -- --watchAll",
     "test": "jest"
   }
