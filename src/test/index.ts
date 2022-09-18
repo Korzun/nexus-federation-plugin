@@ -7,53 +7,16 @@ import {
 
 import { create as createBuilder, TypeCreate } from '../builder';
 
-const makeSchema = (
-  pluginTypeCreate: TypeCreate[],
-  typeCreateOptions: Record<string, any> = {},
-  types?: any,
-) => {
-  // Nexus will occasionally adds an `ok` query, this `testQuery` prevents
-  // that behavior and makes schema and typegen output more reliable.
-  const testQuery = queryField('test', { type: 'Boolean' });
-  // const typeBuilder = pluginTypeCreate(createBuilder(), typeCreateOptions);
-  const typeBuilder = pluginTypeCreate.reduce(
-    (typeBuilder, pluginTypeCreate) =>
-      pluginTypeCreate(typeBuilder, typeCreateOptions),
-    createBuilder(),
-  );
-  return makeNexusSchema({
-    types: [testQuery, types],
-    features: {
-      abstractTypeStrategies: {
-        resolveType: true,
-        __typename: true,
-      },
-    },
-    plugins: [
-      createPlugin({
-        name: 'federation',
-        ...typeBuilder.build(),
-      }),
-    ],
-  });
-};
-
-const makeMetadata = () => {
-  return new core.TypegenMetadata({
-    outputs: { typegen: null, schema: null },
-  });
-};
-
 export const createSchema = (
   pluginTypeCreate: TypeCreate | TypeCreate[],
   typeCreateOptions: Record<string, any> = {},
   types?: any,
 ): string => {
-  const schema = makeSchema(
+  const plugin = makePlugin(
     Array.isArray(pluginTypeCreate) ? pluginTypeCreate : [pluginTypeCreate],
     typeCreateOptions,
-    types,
   );
+  const schema = makeSchema(plugin, types);
   const metadata = makeMetadata();
   return metadata.generateSchemaFile(metadata.sortSchema(schema));
 };
@@ -63,11 +26,49 @@ export const createTypegen = async (
   typeCreateOptions: Record<string, any> = {},
   types?: any,
 ) => {
-  const schema = makeSchema(
+  const plugin = makePlugin(
     Array.isArray(pluginTypeCreate) ? pluginTypeCreate : [pluginTypeCreate],
     typeCreateOptions,
-    types,
   );
+  const schema = makeSchema(plugin, types);
   const metadata = makeMetadata();
   return await metadata.generateTypesFile(metadata.sortSchema(schema), '');
+};
+
+export const makeMetadata = () => {
+  return new core.TypegenMetadata({
+    outputs: { typegen: null, schema: null },
+  });
+};
+
+export const makePlugin = (
+  pluginTypeCreate: TypeCreate[],
+  typeCreateOptions: Record<string, any> = {},
+): core.NexusPlugin => {
+  const typeBuilder = pluginTypeCreate.reduce(
+    (typeBuilder, pluginTypeCreate) =>
+      pluginTypeCreate(typeBuilder, typeCreateOptions),
+    createBuilder(),
+  );
+  return createPlugin({
+    name: 'federation',
+    ...typeBuilder.build(),
+  });
+};
+
+export const makeSchema = (plugin: core.NexusPlugin, types?: any) => {
+  // Nexus adds an `ok` query to schemas lacking a query. The query can
+  // vary a bit depending on the scenario. This `testQuery` prevents
+  // that behavior making the schema and typegen output more consistent.
+  const testQuery = queryField('test', { type: 'Boolean' });
+  return makeNexusSchema({
+    types: [testQuery, types],
+    plugins: [plugin],
+    features: {
+      abstractTypeStrategies: {
+        resolveType: true,
+        __typename: true,
+      },
+    },
+  });
 };
