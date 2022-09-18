@@ -70,9 +70,9 @@
     "lint:markdown": "markdownlint '**/*.md'",
     "lint:typescript": "npm run build -- --noEmit",
     "lint": "concurrently \"npm:lint:*(!fix)\" -g",
-    "release:pr": "dripip pr",
-    "release:preview": "dripip preview",
-    "release:stable": "dripip stable",
+    "release:pr": "dripip pr --json",
+    "release:preview": "dripip preview-or-pr --json",
+    "release:stable": "dripip stable --json",
     "test:ci": "npm run test -- --maxWorkers 2 --coverage --ci --reporters=default",
     "test:watch": "npm run test -- --watchAll",
     "test": "jest"

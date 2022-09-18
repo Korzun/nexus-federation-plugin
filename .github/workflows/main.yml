@@ -1,11 +1,10 @@
 name: 'main'
 on:
-  pull_request_target:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 jobs:
   test:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +15,6 @@ jobs:
       - run: npm ci
       - run: npm run test:ci
   lint-code:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,7 +25,6 @@ jobs:
       - run: npm ci
       - run: npm run lint:code
   lint-markdown:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -38,7 +35,6 @@ jobs:
       - run: npm ci
       - run: npm run lint:markdown
   lint-typescript:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -49,7 +45,6 @@ jobs:
       - run: npm ci
       - run: npm run lint:typescript
   release-canary:
-    if: github.event.pull_request.merged == true
     needs: [test, lint-code, lint-markdown, lint-typescript]
     runs-on: ubuntu-latest
     steps:
