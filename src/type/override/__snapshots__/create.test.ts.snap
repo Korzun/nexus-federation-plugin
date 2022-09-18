@@ -227,7 +227,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#override)
+     * [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#override)
      */
     override?: FederationOverrideField
   }
@@ -469,7 +469,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#override)
+     * [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#override)
      */
     override?: FederationOverrideField
   }
@@ -690,7 +690,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#override)
+     * [Override - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#override)
      */
     override?: FederationOverrideField
   }

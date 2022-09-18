@@ -29,7 +29,7 @@ export const field = (options?: Options) =>
       the purpose of adding a new field \`reviews\`, which returns
       a list of \`Reviews\`.
 
-      [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#external)
+      [External - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#external)
     `,
     imports: [
       core.printedGenTypingImport({

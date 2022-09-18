@@ -20,7 +20,7 @@ export const directive = ({
     },
     description: `
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.

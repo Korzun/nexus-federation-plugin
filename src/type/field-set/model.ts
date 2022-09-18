@@ -15,6 +15,6 @@ export const model = ({ prefixFieldset = true }: Options = {}) =>
   countryCode", and even nested selection sets "id organization
   { id }".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   `,
   });

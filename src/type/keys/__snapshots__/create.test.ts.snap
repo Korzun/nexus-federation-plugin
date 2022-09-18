@@ -8,7 +8,7 @@ exports[`keys \`enableKeyOnInterface\` configured to \`false\` is added to schem
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -28,7 +28,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -171,12 +171,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }
@@ -205,7 +205,7 @@ exports[`keys \`enableKeyOnInterface\` configured to \`true\` is added to schema
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -225,7 +225,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -368,12 +368,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }
@@ -402,7 +402,7 @@ exports[`keys \`prefixFieldset\` configured to \`false\` is added to schema with
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -418,7 +418,7 @@ directive @key(fields: FieldSet!) repeatable on OBJECT
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar FieldSet
@@ -565,12 +565,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }
@@ -599,7 +599,7 @@ exports[`keys \`prefixFieldset\` configured to \`true\` is added to schema with 
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -619,7 +619,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -762,12 +762,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }
@@ -796,7 +796,7 @@ exports[`keys default config is added to schema 1`] = `
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -816,7 +816,7 @@ type Query {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -959,12 +959,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }
@@ -993,7 +993,7 @@ exports[`keys object configuration is NOT present is correctly added to the sche
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -1019,7 +1019,7 @@ type User {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -1177,12 +1177,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }
@@ -1211,7 +1211,7 @@ exports[`keys object configuration is present is correctly added to the schema 1
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#key
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
 
       Indicates a combination of fields that can be used
       to uniquely identify and fetch an object or interface.
@@ -1237,7 +1237,7 @@ type User @key(fields: \\"id email\\") {
   countryCode\\", and even nested selection sets \\"id organization
   { id }\\".
   
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#scalar-fieldset)
+  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   
 \\"\\"\\"
 scalar _FieldSet"
@@ -1395,12 +1395,12 @@ declare global {
      * name: 'User',
      * keys: ['id'],
      * definition(t) {
-     * t.id('id');
+     * t.id('id');             // shareable because id is a key field
      * t.string('name');
      * },
      * });
      * \`\`\`
-     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#key)
+     * [Key - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#key)
      */
     keys?: FederationKeysObject<TypeName>
   }

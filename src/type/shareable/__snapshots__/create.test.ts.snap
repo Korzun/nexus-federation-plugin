@@ -8,7 +8,7 @@ exports[`shareable field configuration is NOT present is correctly added to the 
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#shareable
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
 
       Indicates that an object type's field is allowed to be resolved
       by multiple subgraphs (by default in Federation 2, object
@@ -218,7 +218,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableObject
   }
@@ -244,7 +244,7 @@ declare global {
      * }
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableField
   }
@@ -267,7 +267,7 @@ exports[`shareable field configuration is present is correctly added to the sche
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#shareable
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
 
       Indicates that an object type's field is allowed to be resolved
       by multiple subgraphs (by default in Federation 2, object
@@ -477,7 +477,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableObject
   }
@@ -503,7 +503,7 @@ declare global {
      * }
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableField
   }
@@ -526,7 +526,7 @@ exports[`shareable is correctly added to schema 1`] = `
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#shareable
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
 
       Indicates that an object type's field is allowed to be resolved
       by multiple subgraphs (by default in Federation 2, object
@@ -715,7 +715,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableObject
   }
@@ -741,7 +741,7 @@ declare global {
      * }
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableField
   }
@@ -764,7 +764,7 @@ exports[`shareable object configuration is NOT present is correctly added to the
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#shareable
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
 
       Indicates that an object type's field is allowed to be resolved
       by multiple subgraphs (by default in Federation 2, object
@@ -974,7 +974,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableObject
   }
@@ -1000,7 +1000,7 @@ declare global {
      * }
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableField
   }
@@ -1023,7 +1023,7 @@ exports[`shareable object configuration is present is correctly added to the sch
 \\"\\"\\"
 
       **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federation-spec/#shareable
+      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
 
       Indicates that an object type's field is allowed to be resolved
       by multiple subgraphs (by default in Federation 2, object
@@ -1233,7 +1233,7 @@ declare global {
      * },
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableObject
   }
@@ -1259,7 +1259,7 @@ declare global {
      * }
      * });
      * \`\`\`
-     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#shareable)
+     * [Sharable - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable)
      */
     shareable?: FederationShareableField
   }

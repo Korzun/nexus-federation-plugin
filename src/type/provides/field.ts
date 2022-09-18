@@ -43,7 +43,7 @@ export const field = (options?: Options) =>
       type which is why the local type extension of \`Product\` and
       annotation of \`name\` is required.
 
-      [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#provides)
+      [Provides - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides)
     `,
     imports: [
       core.printedGenTypingImport({
