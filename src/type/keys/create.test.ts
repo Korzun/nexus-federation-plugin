@@ -19,8 +19,8 @@ describe('keys', () => {
       expect(typegen).toMatchSnapshot();
     });
   });
-  describe('`prefixFieldset` configured to `false`', () => {
-    const typeCreateOptions: self.CreateOptions = { prefixFieldset: false };
+  describe('`prefixFieldSet` configured to `false`', () => {
+    const typeCreateOptions: self.CreateOptions = { prefixFieldSet: false };
     it('is added to schema with fields type as `FieldSet`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();
@@ -31,8 +31,8 @@ describe('keys', () => {
       expect(typegen).toMatchSnapshot();
     });
   });
-  describe('`prefixFieldset` configured to `true`', () => {
-    const typeCreateOptions: self.CreateOptions = { prefixFieldset: true };
+  describe('`prefixFieldSet` configured to `true`', () => {
+    const typeCreateOptions: self.CreateOptions = { prefixFieldSet: true };
     it('is added to schema with fields type as `_FieldSet`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();

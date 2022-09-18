@@ -3,15 +3,15 @@ import { arg, directive as nexusDirective, nonNull } from 'nexus';
 import * as fieldSet from '../field-set';
 
 export type Options = {
-  prefixFieldset?: boolean;
+  prefixFieldSet?: boolean;
 };
 
-export const directive = ({ prefixFieldset }: Options = {}) =>
+export const directive = ({ prefixFieldSet }: Options = {}) =>
   nexusDirective({
     name: 'provides',
     locations: ['FIELD_DEFINITION'],
     args: {
-      fields: nonNull(arg({ type: fieldSet.getModelName(prefixFieldset) })),
+      fields: nonNull(arg({ type: fieldSet.getModelName(prefixFieldSet) })),
     },
     description: `
       **Apollo Federation 2.0 Subgraph**

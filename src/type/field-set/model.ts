@@ -1,13 +1,13 @@
 import { scalarType } from 'nexus';
 
 export type Options = {
-  prefixFieldset?: boolean;
+  prefixFieldSet?: boolean;
 };
 
 //TODO: In some future version of the Federation Spec this will change from _FieldSet to FieldSet, need to support.
-export const model = ({ prefixFieldset }: Options = {}) =>
+export const model = ({ prefixFieldSet }: Options = {}) =>
   scalarType({
-    name: getName(prefixFieldset),
+    name: getName(prefixFieldSet),
     description: `
   Represents a set of fields. Grammatically, a field set
   is a selection set minus the braces. This means it can
