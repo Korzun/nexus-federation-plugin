@@ -39,6 +39,7 @@ export type CreateOptions = ExternalTypeCreateOptions &
 
 export const create = (options: CreateOptions = {}) => {
   const typeBuilder = createTypeBuilder();
+  // Order of operations is important
   createFieldSetType(typeBuilder, options);
   createExternalType(typeBuilder, options);
   createKeysType(typeBuilder, options);

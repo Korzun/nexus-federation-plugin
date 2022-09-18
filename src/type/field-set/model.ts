@@ -5,9 +5,9 @@ export type Options = {
 };
 
 //TODO: In some future version of the Federation Spec this will change from _FieldSet to FieldSet, need to support.
-export const model = ({ prefixFieldset = true }: Options = {}) =>
+export const model = ({ prefixFieldset }: Options = {}) =>
   scalarType({
-    name: prefixFieldset ? '_FieldSet' : 'FieldSet',
+    name: getName(prefixFieldset),
     description: `
   Represents a set of fields. Grammatically, a field set
   is a selection set minus the braces. This means it can
@@ -18,3 +18,7 @@ export const model = ({ prefixFieldset = true }: Options = {}) =>
   [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
   `,
   });
+
+export const getName = (prefix = true) => {
+  return prefix ? '_FieldSet' : 'FieldSet';
+};

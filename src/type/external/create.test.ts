@@ -2,15 +2,15 @@ import { core, objectType } from 'nexus';
 
 import * as testHelper from '../../test';
 
-import { create } from './create';
+import * as self from './index';
 
 describe('external', () => {
   it('is correctly added to schema', () => {
-    const schema = testHelper.createSchema(create);
+    const schema = testHelper.createSchema(self.create);
     expect(schema).toMatchSnapshot();
   });
   it('is correctly added to typegen', async () => {
-    const types = await testHelper.createTypegen(create);
+    const types = await testHelper.createTypegen(self.create);
     expect(types).toMatchSnapshot();
   });
 
@@ -29,11 +29,15 @@ describe('external', () => {
         });
       });
       it('is correctly added to the schema', () => {
-        const schema = testHelper.createSchema(create, {}, testType);
+        const schema = testHelper.createSchema(self.create, {}, testType);
         expect(schema).toMatchSnapshot();
       });
       it('is correctly added to typegen', async () => {
-        const typegen = await testHelper.createTypegen(create, {}, testType);
+        const typegen = await testHelper.createTypegen(
+          self.create,
+          {},
+          testType,
+        );
         expect(typegen).toMatchSnapshot();
       });
     });
@@ -50,11 +54,15 @@ describe('external', () => {
         });
       });
       it('is correctly added to the schema', () => {
-        const schema = testHelper.createSchema(create, {}, testType);
+        const schema = testHelper.createSchema(self.create, {}, testType);
         expect(schema).toMatchSnapshot();
       });
       it('is correctly added to typegen', async () => {
-        const typegen = await testHelper.createTypegen(create, {}, testType);
+        const typegen = await testHelper.createTypegen(
+          self.create,
+          {},
+          testType,
+        );
         expect(typegen).toMatchSnapshot();
       });
     });

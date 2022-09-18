@@ -16,7 +16,7 @@ export const directive = ({
     locations: enableKeyOnInterface ? ['INTERFACE', 'OBJECT'] : ['OBJECT'],
     isRepeatable: true,
     args: {
-      fields: nonNull(arg({ type: fieldSet.model({ prefixFieldset }) })),
+      fields: nonNull(arg({ type: fieldSet.getModelName(prefixFieldset) })),
     },
     description: `
       **Apollo Federation 2.0 Subgraph**

@@ -1,8 +1,11 @@
 import { core, objectType } from 'nexus';
 
 import * as testHelper from '../../test';
+import * as fieldSet from '../field-set';
 
-import { create } from './create';
+import * as self from './index';
+
+const create = [fieldSet.create, self.create];
 
 describe('provides', () => {
   describe('default config', () => {
@@ -17,7 +20,7 @@ describe('provides', () => {
     });
   });
   describe('`prefixFieldset` configured to `false`', () => {
-    const typeCreateOptions = { prefixFieldset: false };
+    const typeCreateOptions: self.CreateOptions = { prefixFieldset: false };
     it('is added to schema with fields type as `FieldSet`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();
@@ -29,7 +32,7 @@ describe('provides', () => {
     });
   });
   describe('`prefixFieldset` configured to `true`', () => {
-    const typeCreateOptions = { prefixFieldset: true };
+    const typeCreateOptions: self.CreateOptions = { prefixFieldset: true };
     it('is added to schema with fields type as `_FieldSet`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();

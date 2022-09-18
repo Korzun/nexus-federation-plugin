@@ -8,14 +8,19 @@ import {
 import { create as createBuilder, TypeCreate } from '../builder';
 
 const makeSchema = (
-  pluginTypeCreate: TypeCreate,
+  pluginTypeCreate: TypeCreate[],
   typeCreateOptions: Record<string, any> = {},
   types?: any,
 ) => {
   // Nexus will occasionally adds an `ok` query, this `testQuery` prevents
   // that behavior and makes schema and typegen output more reliable.
   const testQuery = queryField('test', { type: 'Boolean' });
-  const typeBuilder = pluginTypeCreate(createBuilder(), typeCreateOptions);
+  // const typeBuilder = pluginTypeCreate(createBuilder(), typeCreateOptions);
+  const typeBuilder = pluginTypeCreate.reduce(
+    (typeBuilder, pluginTypeCreate) =>
+      pluginTypeCreate(typeBuilder, typeCreateOptions),
+    createBuilder(),
+  );
   return makeNexusSchema({
     types: [testQuery, types],
     features: {
@@ -40,21 +45,29 @@ const makeMetadata = () => {
 };
 
 export const createSchema = (
-  pluginTypeCreate: TypeCreate,
+  pluginTypeCreate: TypeCreate | TypeCreate[],
   typeCreateOptions: Record<string, any> = {},
   types?: any,
 ): string => {
-  const schema = makeSchema(pluginTypeCreate, typeCreateOptions, types);
+  const schema = makeSchema(
+    Array.isArray(pluginTypeCreate) ? pluginTypeCreate : [pluginTypeCreate],
+    typeCreateOptions,
+    types,
+  );
   const metadata = makeMetadata();
   return metadata.generateSchemaFile(metadata.sortSchema(schema));
 };
 
 export const createTypegen = async (
-  pluginTypeCreate: TypeCreate,
+  pluginTypeCreate: TypeCreate | TypeCreate[],
   typeCreateOptions: Record<string, any> = {},
   types?: any,
 ) => {
-  const schema = makeSchema(pluginTypeCreate, typeCreateOptions, types);
+  const schema = makeSchema(
+    Array.isArray(pluginTypeCreate) ? pluginTypeCreate : [pluginTypeCreate],
+    typeCreateOptions,
+    types,
+  );
   const metadata = makeMetadata();
   return await metadata.generateTypesFile(metadata.sortSchema(schema), '');
 };

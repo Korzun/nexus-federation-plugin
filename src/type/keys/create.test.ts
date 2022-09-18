@@ -1,8 +1,11 @@
 import { core, objectType } from 'nexus';
 
 import * as testHelper from '../../test';
+import * as fieldSet from '../field-set';
 
-import { create } from './create';
+import * as self from './index';
+
+const create = [fieldSet.create, self.create];
 
 describe('keys', () => {
   describe('default config', () => {
@@ -17,7 +20,7 @@ describe('keys', () => {
     });
   });
   describe('`prefixFieldset` configured to `false`', () => {
-    const typeCreateOptions = { prefixFieldset: false };
+    const typeCreateOptions: self.CreateOptions = { prefixFieldset: false };
     it('is added to schema with fields type as `FieldSet`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();
@@ -29,7 +32,7 @@ describe('keys', () => {
     });
   });
   describe('`prefixFieldset` configured to `true`', () => {
-    const typeCreateOptions = { prefixFieldset: true };
+    const typeCreateOptions: self.CreateOptions = { prefixFieldset: true };
     it('is added to schema with fields type as `_FieldSet`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();
@@ -41,7 +44,9 @@ describe('keys', () => {
     });
   });
   describe('`enableKeyOnInterface` configured to `true`', () => {
-    const typeCreateOptions = { enableKeyOnInterface: true };
+    const typeCreateOptions: self.CreateOptions = {
+      enableKeyOnInterface: true,
+    };
     it('is added to schema allowing `OBJECT` and `INTERFACE`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();
@@ -53,7 +58,9 @@ describe('keys', () => {
     });
   });
   describe('`enableKeyOnInterface` configured to `false`', () => {
-    const typeCreateOptions = { enableKeyOnInterface: false };
+    const typeCreateOptions: self.CreateOptions = {
+      enableKeyOnInterface: false,
+    };
     it('is added to schema only allowing `OBJECT`', () => {
       const schema = testHelper.createSchema(create, typeCreateOptions);
       expect(schema).toMatchSnapshot();
