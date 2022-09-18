@@ -1,4 +1,4 @@
-import { create as createTypeBuilder } from '../builder';
+import { create as createTypeBuilder, PluginTypes } from '../builder';
 
 import {
   create as createExternalType,
@@ -8,6 +8,10 @@ import {
   create as createFieldSetType,
   CreateOptions as FieldSetTypeCreateOptions,
 } from './field-set';
+import {
+  create as createInaccessibleType,
+  CreateOptions as InaccessibleTypeCreateOptions,
+} from './inaccessible';
 import {
   create as createKeysType,
   CreateOptions as KeysTypeCreateOptions,
@@ -31,21 +35,28 @@ import {
 
 export type CreateOptions = ExternalTypeCreateOptions &
   FieldSetTypeCreateOptions &
+  InaccessibleTypeCreateOptions &
   KeysTypeCreateOptions &
   OverrideTypeCreateOptions &
   ProvidesTypeCreateOptions &
   RequiresTypeCreateOptions &
   ShareableTypeCreateOptions;
 
-export const create = (options: CreateOptions = {}) => {
-  const typeBuilder = createTypeBuilder();
-  // Order of operations is important
-  createFieldSetType(typeBuilder, options);
-  createExternalType(typeBuilder, options);
-  createKeysType(typeBuilder, options);
-  createOverrideType(typeBuilder, options);
-  createProvidesType(typeBuilder, options);
-  createRequiresType(typeBuilder, options);
-  createShareableType(typeBuilder, options);
-  return typeBuilder.build();
+export const create = (options: CreateOptions = {}): PluginTypes => {
+  // Order of operations is important `createFieldSetType` is used
+  // by other types, so it must come first
+  return [
+    createFieldSetType,
+    createExternalType,
+    createInaccessibleType,
+    createKeysType,
+    createOverrideType,
+    createProvidesType,
+    createRequiresType,
+    createShareableType,
+  ]
+    .reduce((typeBuilder, create) => {
+      return create(typeBuilder, options);
+    }, createTypeBuilder())
+    .build();
 };

@@ -5,8 +5,11 @@ import { path } from '../../path';
 // Must be globally unique
 export type FederationInaccessibleEnum = true;
 
-export const field = core.printedGenTyping({
-  description: `
+export type Options = {};
+
+export const enumField = (options?: Options) =>
+  core.printedGenTyping({
+    description: `
     Indicates that a **field** or **input field** within the schema is
     inaccessible. Inaccessible elements are available to query at the subgraph
     level but are not available to query at the supergraph level (through the
@@ -30,13 +33,13 @@ export const field = core.printedGenTyping({
 
     [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
   `,
-  imports: [
-    core.printedGenTypingImport({
-      module: path(__filename),
-      bindings: ['FederationInaccessibleEnum'],
-    }),
-  ],
-  name: 'inaccessible',
-  optional: true,
-  type: 'FederationInaccessibleEnum',
-});
+    imports: [
+      core.printedGenTypingImport({
+        module: path(__filename),
+        bindings: ['FederationInaccessibleEnum'],
+      }),
+    ],
+    name: 'inaccessible',
+    optional: true,
+    type: 'FederationInaccessibleEnum',
+  });

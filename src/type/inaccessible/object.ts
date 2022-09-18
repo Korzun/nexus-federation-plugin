@@ -5,8 +5,11 @@ import { path } from '../../path';
 // Must be globally unique
 export type FederationInaccessibleObject = true;
 
-export const object = core.printedGenTyping({
-  description: `
+export type Options = {};
+
+export const object = (options?: Options) =>
+  core.printedGenTyping({
+    description: `
     Indicates that an **object** within the schema is inaccessible.
     Inaccessible elements are available to query at the subgraph
     level but are not available to query at the supergraph level
@@ -25,20 +28,19 @@ export const object = core.printedGenTyping({
         t.nullable.string('sku');
         t.nullable.string('package');
         t.nullable.field('createdBy', { type: 'User' });
-        t.nullable.string('hidden');
       }
     });
     \`\`\`
 
     [Inaccessible - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/federation-spec/#inaccessible)
   `,
-  imports: [
-    core.printedGenTypingImport({
-      module: path(__filename),
-      bindings: ['FederationInaccessibleObject'],
-    }),
-  ],
-  name: 'inaccessible',
-  optional: true,
-  type: 'FederationInaccessibleObject',
-});
+    imports: [
+      core.printedGenTypingImport({
+        module: path(__filename),
+        bindings: ['FederationInaccessibleObject'],
+      }),
+    ],
+    name: 'inaccessible',
+    optional: true,
+    type: 'FederationInaccessibleObject',
+  });

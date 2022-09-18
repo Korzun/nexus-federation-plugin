@@ -57,8 +57,8 @@ describe('plugin', () => {
       expect(typegen).toMatchSnapshot();
     });
   });
-  describe('`prefixFieldset` configured to `false`', () => {
-    const options: PluginOptions = { prefixFieldset: false };
+  describe('`prefixFieldSet` configured to `false`', () => {
+    const options: PluginOptions = { prefixFieldSet: false };
     it('generates the schema with `FieldSet`', () => {
       const nexusSchema = testHelper.makeSchema(plugin(options), testTypes);
       const metadata = testHelper.makeMetadata();
@@ -77,8 +77,8 @@ describe('plugin', () => {
       expect(typegen).toMatchSnapshot();
     });
   });
-  describe('`prefixFieldset` configured to `true`', () => {
-    const options: PluginOptions = { prefixFieldset: true };
+  describe('`prefixFieldSet` configured to `true`', () => {
+    const options: PluginOptions = { prefixFieldSet: true };
     it('generates the schema with `_FieldSet`', () => {
       const nexusSchema = testHelper.makeSchema(plugin(options), testTypes);
       const metadata = testHelper.makeMetadata();

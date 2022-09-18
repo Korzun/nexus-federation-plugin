@@ -36,6 +36,8 @@
     "url": "git+https://github.com/Korzun/nexus-federation-plugin.git"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
     "@types/jest": "^28.1.8",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
@@ -47,6 +49,7 @@
     "eslint-plugin-jest": "^26.8.2",
     "eslint-plugin-prettier": "^4.0.0",
     "graphql": "^16.6.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.3",
     "markdownlint-cli": "^0.32.2",
     "nexus": "^1.4.0-next.11",
@@ -67,8 +70,9 @@
     "clean": "rm -rf 'dist'",
     "lint:code:fix": "npm run lint:code -- --fix",
     "lint:code": "eslint 'src/**'",
+    "lint:git": "npx commitlint --from $(git rev-parse --short $(git rev-list --max-parents=0 HEAD))",
     "lint:markdown": "markdownlint '**/*.md'",
-    "lint:typescript": "npm run build -- --noEmit",
+    "lint:typescript": "tsc -p 'tsconfig.build.cjs.json' --noEmit",
     "lint": "concurrently \"npm:lint:*(!fix)\" -g",
     "prepublish": "npm run build",
     "release:pr": "dripip pr --json",
