@@ -8,15 +8,6 @@ export type Options = {
 export const model = ({ prefixFieldSet }: Options = {}) =>
   scalarType({
     name: getName(prefixFieldSet),
-    description: `
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field "upc", multiple fields "id
-  countryCode", and even nested selection sets "id organization
-  { id }".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  `,
   });
 
 export const getName = (prefix = true) => {

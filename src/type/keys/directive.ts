@@ -18,11 +18,4 @@ export const directive = ({
     args: {
       fields: nonNull(arg({ type: fieldSet.getModelName(prefixFieldSet) })),
     },
-    description: `
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    `,
   });

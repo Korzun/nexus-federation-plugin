@@ -5,32 +5,12 @@ exports[`keys \`enableKeyOnInterface\` configured to \`false\` is added to schem
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
 type Query {
   test: Boolean
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -202,32 +182,12 @@ exports[`keys \`enableKeyOnInterface\` configured to \`true\` is added to schema
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on INTERFACE | OBJECT
 
 type Query {
   test: Boolean
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -399,28 +359,8 @@ exports[`keys \`prefixFieldSet\` configured to \`false\` is added to schema with
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: FieldSet!) repeatable on OBJECT
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar FieldSet
 
 type Query {
@@ -596,32 +536,12 @@ exports[`keys \`prefixFieldSet\` configured to \`true\` is added to schema with 
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
 type Query {
   test: Boolean
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -793,32 +713,12 @@ exports[`keys default config is added to schema 1`] = `
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
 type Query {
   test: Boolean
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -990,15 +890,6 @@ exports[`keys object configuration is NOT present is correctly added to the sche
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
 type Query {
@@ -1011,17 +902,6 @@ type User {
   name: String
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -1208,15 +1088,6 @@ exports[`keys object configuration is present is correctly added to the schema 1
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
 type Query {
@@ -1229,17 +1100,6 @@ type User @key(fields: \\"id email\\") {
   name: String
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 

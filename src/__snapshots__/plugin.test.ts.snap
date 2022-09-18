@@ -5,176 +5,16 @@ exports[`plugin \`enableKeyOnInterface\` configured to \`false\` generates the s
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#override
-      
-      Indicates that the current subgraph is taking
-      responsibility for resolving the marked field away from the
-      subgraph specified in the from argument.
-
-      > Only one subgraph can @override any given field. If
-      > multiple subgraphs attempt to @override the same field, a
-      > composition error occurs.
-
-      The following example will result in all query plans made to
-      resolve \`User.name\` to be directed to \`Subgraph B\`.
-
-      \`\`\`gql
-      # In SubgraphA
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String
-      }
-
-      # In SubgraphB
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String @override(from: \\"SubgraphA\\")
-      }
-      \`\`\`
-    
-\\"\\"\\"
 directive @override(from: String!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
-      
-      Annotates the expected returned fieldset from a
-      field on a base type that is guaranteed to be selectable
-      by the gateway. Given the following example:
-
-      \`\`\`gql
-      type Review @key(fields: \\"id\\") {
-        product: Product @provides(fields: \\"name\\")
-      }
-      
-      extend type Product @key(fields: \\"upc\\") {
-        upc: String @external
-        name: String @external
-      }
-      \`\`\`
-
-      When fetching \`Review.product\` from the Reviews service,
-      it is possible to request the name with the expectation that
-      the Reviews service can provide it when going from review to
-      product. \`Product.name\` is an external field on an external
-      type which is why the local type extension of \`Product\` and
-      annotation of \`name\` is required.
-    
-\\"\\"\\"
 directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
-
-      Indicates that an object type's field is allowed to be resolved
-      by multiple subgraphs (by default in Federation 2, object
-      fields can be resolved by only one subgraph).
-
-      \`\`\`gql
-      type Position {
-        x: Int! @shareable
-        y: Int! @shareable
-      }
-      \`\`\`
-
-      If applied to an object type definition, all of that type's fields
-      are considered \`@shareable\`:
-
-      \`\`\`gql
-      type Position @shareable {
-        x: Int!
-        y: Int!
-      }
-      \`\`\`
-
-      If a field is marked \`@shareable\` in any subgraph, it must beo
-      marked as either \`@shareable\` or \`@external\` in every Federation
-      2 subgraph that defines it.
-
-      If a Federation 2 supergraph includes a Federation 1 subgraph,
-      all value types in the Federation 1 subgraph are automatically
-      considered \`@shareable\` by the Federation 2 composition algorithm.
-      
-      If a field is included in an entity's \`@key\` directive, that
-      field is automatically considered \`@shareable\` and the directive
-      is not required in the corresponding subgraph(s).
-    
-\\"\\"\\"
 directive @shareable on FIELD_DEFINITION | OBJECT
 
 type Company @shareable {
@@ -194,17 +34,6 @@ type User @key(fields: \\"id email\\") {
   title: String @external
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -577,176 +406,16 @@ exports[`plugin \`enableKeyOnInterface\` configured to \`true\` generates the sc
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on INTERFACE | OBJECT
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#override
-      
-      Indicates that the current subgraph is taking
-      responsibility for resolving the marked field away from the
-      subgraph specified in the from argument.
-
-      > Only one subgraph can @override any given field. If
-      > multiple subgraphs attempt to @override the same field, a
-      > composition error occurs.
-
-      The following example will result in all query plans made to
-      resolve \`User.name\` to be directed to \`Subgraph B\`.
-
-      \`\`\`gql
-      # In SubgraphA
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String
-      }
-
-      # In SubgraphB
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String @override(from: \\"SubgraphA\\")
-      }
-      \`\`\`
-    
-\\"\\"\\"
 directive @override(from: String!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
-      
-      Annotates the expected returned fieldset from a
-      field on a base type that is guaranteed to be selectable
-      by the gateway. Given the following example:
-
-      \`\`\`gql
-      type Review @key(fields: \\"id\\") {
-        product: Product @provides(fields: \\"name\\")
-      }
-      
-      extend type Product @key(fields: \\"upc\\") {
-        upc: String @external
-        name: String @external
-      }
-      \`\`\`
-
-      When fetching \`Review.product\` from the Reviews service,
-      it is possible to request the name with the expectation that
-      the Reviews service can provide it when going from review to
-      product. \`Product.name\` is an external field on an external
-      type which is why the local type extension of \`Product\` and
-      annotation of \`name\` is required.
-    
-\\"\\"\\"
 directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
-
-      Indicates that an object type's field is allowed to be resolved
-      by multiple subgraphs (by default in Federation 2, object
-      fields can be resolved by only one subgraph).
-
-      \`\`\`gql
-      type Position {
-        x: Int! @shareable
-        y: Int! @shareable
-      }
-      \`\`\`
-
-      If applied to an object type definition, all of that type's fields
-      are considered \`@shareable\`:
-
-      \`\`\`gql
-      type Position @shareable {
-        x: Int!
-        y: Int!
-      }
-      \`\`\`
-
-      If a field is marked \`@shareable\` in any subgraph, it must beo
-      marked as either \`@shareable\` or \`@external\` in every Federation
-      2 subgraph that defines it.
-
-      If a Federation 2 supergraph includes a Federation 1 subgraph,
-      all value types in the Federation 1 subgraph are automatically
-      considered \`@shareable\` by the Federation 2 composition algorithm.
-      
-      If a field is included in an entity's \`@key\` directive, that
-      field is automatically considered \`@shareable\` and the directive
-      is not required in the corresponding subgraph(s).
-    
-\\"\\"\\"
 directive @shareable on FIELD_DEFINITION | OBJECT
 
 type Company @shareable {
@@ -766,17 +435,6 @@ type User @key(fields: \\"id email\\") {
   title: String @external
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -1149,176 +807,16 @@ exports[`plugin \`prefixFieldSet\` configured to \`false\` generates the schema 
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: FieldSet!) repeatable on OBJECT
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#override
-      
-      Indicates that the current subgraph is taking
-      responsibility for resolving the marked field away from the
-      subgraph specified in the from argument.
-
-      > Only one subgraph can @override any given field. If
-      > multiple subgraphs attempt to @override the same field, a
-      > composition error occurs.
-
-      The following example will result in all query plans made to
-      resolve \`User.name\` to be directed to \`Subgraph B\`.
-
-      \`\`\`gql
-      # In SubgraphA
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String
-      }
-
-      # In SubgraphB
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String @override(from: \\"SubgraphA\\")
-      }
-      \`\`\`
-    
-\\"\\"\\"
 directive @override(from: String!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
-      
-      Annotates the expected returned fieldset from a
-      field on a base type that is guaranteed to be selectable
-      by the gateway. Given the following example:
-
-      \`\`\`gql
-      type Review @key(fields: \\"id\\") {
-        product: Product @provides(fields: \\"name\\")
-      }
-      
-      extend type Product @key(fields: \\"upc\\") {
-        upc: String @external
-        name: String @external
-      }
-      \`\`\`
-
-      When fetching \`Review.product\` from the Reviews service,
-      it is possible to request the name with the expectation that
-      the Reviews service can provide it when going from review to
-      product. \`Product.name\` is an external field on an external
-      type which is why the local type extension of \`Product\` and
-      annotation of \`name\` is required.
-    
-\\"\\"\\"
 directive @provides(fields: FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
-
-      Indicates that an object type's field is allowed to be resolved
-      by multiple subgraphs (by default in Federation 2, object
-      fields can be resolved by only one subgraph).
-
-      \`\`\`gql
-      type Position {
-        x: Int! @shareable
-        y: Int! @shareable
-      }
-      \`\`\`
-
-      If applied to an object type definition, all of that type's fields
-      are considered \`@shareable\`:
-
-      \`\`\`gql
-      type Position @shareable {
-        x: Int!
-        y: Int!
-      }
-      \`\`\`
-
-      If a field is marked \`@shareable\` in any subgraph, it must beo
-      marked as either \`@shareable\` or \`@external\` in every Federation
-      2 subgraph that defines it.
-
-      If a Federation 2 supergraph includes a Federation 1 subgraph,
-      all value types in the Federation 1 subgraph are automatically
-      considered \`@shareable\` by the Federation 2 composition algorithm.
-      
-      If a field is included in an entity's \`@key\` directive, that
-      field is automatically considered \`@shareable\` and the directive
-      is not required in the corresponding subgraph(s).
-    
-\\"\\"\\"
 directive @shareable on FIELD_DEFINITION | OBJECT
 
 type Company @shareable {
@@ -1326,17 +824,6 @@ type Company @shareable {
   name: String @external
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar FieldSet
 
 type Query {
@@ -1721,176 +1208,16 @@ exports[`plugin \`prefixFieldSet\` configured to \`true\` generates the schema w
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#override
-      
-      Indicates that the current subgraph is taking
-      responsibility for resolving the marked field away from the
-      subgraph specified in the from argument.
-
-      > Only one subgraph can @override any given field. If
-      > multiple subgraphs attempt to @override the same field, a
-      > composition error occurs.
-
-      The following example will result in all query plans made to
-      resolve \`User.name\` to be directed to \`Subgraph B\`.
-
-      \`\`\`gql
-      # In SubgraphA
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String
-      }
-
-      # In SubgraphB
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String @override(from: \\"SubgraphA\\")
-      }
-      \`\`\`
-    
-\\"\\"\\"
 directive @override(from: String!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
-      
-      Annotates the expected returned fieldset from a
-      field on a base type that is guaranteed to be selectable
-      by the gateway. Given the following example:
-
-      \`\`\`gql
-      type Review @key(fields: \\"id\\") {
-        product: Product @provides(fields: \\"name\\")
-      }
-      
-      extend type Product @key(fields: \\"upc\\") {
-        upc: String @external
-        name: String @external
-      }
-      \`\`\`
-
-      When fetching \`Review.product\` from the Reviews service,
-      it is possible to request the name with the expectation that
-      the Reviews service can provide it when going from review to
-      product. \`Product.name\` is an external field on an external
-      type which is why the local type extension of \`Product\` and
-      annotation of \`name\` is required.
-    
-\\"\\"\\"
 directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
-
-      Indicates that an object type's field is allowed to be resolved
-      by multiple subgraphs (by default in Federation 2, object
-      fields can be resolved by only one subgraph).
-
-      \`\`\`gql
-      type Position {
-        x: Int! @shareable
-        y: Int! @shareable
-      }
-      \`\`\`
-
-      If applied to an object type definition, all of that type's fields
-      are considered \`@shareable\`:
-
-      \`\`\`gql
-      type Position @shareable {
-        x: Int!
-        y: Int!
-      }
-      \`\`\`
-
-      If a field is marked \`@shareable\` in any subgraph, it must beo
-      marked as either \`@shareable\` or \`@external\` in every Federation
-      2 subgraph that defines it.
-
-      If a Federation 2 supergraph includes a Federation 1 subgraph,
-      all value types in the Federation 1 subgraph are automatically
-      considered \`@shareable\` by the Federation 2 composition algorithm.
-      
-      If a field is included in an entity's \`@key\` directive, that
-      field is automatically considered \`@shareable\` and the directive
-      is not required in the corresponding subgraph(s).
-    
-\\"\\"\\"
 directive @shareable on FIELD_DEFINITION | OBJECT
 
 type Company @shareable {
@@ -1910,17 +1237,6 @@ type User @key(fields: \\"id email\\") {
   title: String @external
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -2293,176 +1609,16 @@ exports[`plugin default config generates the schema 1`] = `
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#key
-
-      Indicates a combination of fields that can be used
-      to uniquely identify and fetch an object or interface.
-    
-\\"\\"\\"
 directive @key(fields: _FieldSet!) repeatable on OBJECT
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#override
-      
-      Indicates that the current subgraph is taking
-      responsibility for resolving the marked field away from the
-      subgraph specified in the from argument.
-
-      > Only one subgraph can @override any given field. If
-      > multiple subgraphs attempt to @override the same field, a
-      > composition error occurs.
-
-      The following example will result in all query plans made to
-      resolve \`User.name\` to be directed to \`Subgraph B\`.
-
-      \`\`\`gql
-      # In SubgraphA
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String
-      }
-
-      # In SubgraphB
-      type User @key(fields: \\"id\\") {
-        id: ID!
-        name: String @override(from: \\"SubgraphA\\")
-      }
-      \`\`\`
-    
-\\"\\"\\"
 directive @override(from: String!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#provides
-      
-      Annotates the expected returned fieldset from a
-      field on a base type that is guaranteed to be selectable
-      by the gateway. Given the following example:
-
-      \`\`\`gql
-      type Review @key(fields: \\"id\\") {
-        product: Product @provides(fields: \\"name\\")
-      }
-      
-      extend type Product @key(fields: \\"upc\\") {
-        upc: String @external
-        name: String @external
-      }
-      \`\`\`
-
-      When fetching \`Review.product\` from the Reviews service,
-      it is possible to request the name with the expectation that
-      the Reviews service can provide it when going from review to
-      product. \`Product.name\` is an external field on an external
-      type which is why the local type extension of \`Product\` and
-      annotation of \`name\` is required.
-    
-\\"\\"\\"
 directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#shareable
-
-      Indicates that an object type's field is allowed to be resolved
-      by multiple subgraphs (by default in Federation 2, object
-      fields can be resolved by only one subgraph).
-
-      \`\`\`gql
-      type Position {
-        x: Int! @shareable
-        y: Int! @shareable
-      }
-      \`\`\`
-
-      If applied to an object type definition, all of that type's fields
-      are considered \`@shareable\`:
-
-      \`\`\`gql
-      type Position @shareable {
-        x: Int!
-        y: Int!
-      }
-      \`\`\`
-
-      If a field is marked \`@shareable\` in any subgraph, it must beo
-      marked as either \`@shareable\` or \`@external\` in every Federation
-      2 subgraph that defines it.
-
-      If a Federation 2 supergraph includes a Federation 1 subgraph,
-      all value types in the Federation 1 subgraph are automatically
-      considered \`@shareable\` by the Federation 2 composition algorithm.
-      
-      If a field is included in an entity's \`@key\` directive, that
-      field is automatically considered \`@shareable\` and the directive
-      is not required in the corresponding subgraph(s).
-    
-\\"\\"\\"
 directive @shareable on FIELD_DEFINITION | OBJECT
 
 type Company @shareable {
@@ -2482,17 +1638,6 @@ type User @key(fields: \\"id email\\") {
   title: String @external
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 

@@ -5,48 +5,8 @@ exports[`requires \`prefixFieldSet\` configured to \`false\` is added to schema 
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: FieldSet!) on FIELD_DEFINITION
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar FieldSet
 
 type Query {
@@ -232,52 +192,12 @@ exports[`requires \`prefixFieldSet\` configured to \`true\` is added to schema w
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
 type Query {
   test: Boolean
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -459,52 +379,12 @@ exports[`requires default config is added to schema 1`] = `
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
 type Query {
   test: Boolean
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -686,35 +566,6 @@ exports[`requires field configuration is NOT present is correctly added to the s
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
 type Query {
@@ -727,17 +578,6 @@ type User {
   name: String
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 
@@ -934,35 +774,6 @@ exports[`requires field configuration is present is correctly added to the schem
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#requires
-      
-      Annotates the required input fieldset from a base
-      type for a resolver. It is used to develop a query plan
-      where the required fields may not be needed by the client,
-      but the service may need additional information from other
-      services. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      In this case, the \`Reviews Service\` adds new capabilities
-      to the \`User\` type by providing a list of reviews related
-      to a user. In order to fetch these reviews, the \`Reviews
-      Service\` needs to know the email of the \`User\` from the
-      \`Users Service\` in order to look up the reviews. This
-      means the reviews field / resolver requires the email field
-      from the base \`User\` type.
-    
-\\"\\"\\"
 directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
 
 type Query {
@@ -975,17 +786,6 @@ type User {
   name: String @requires(fields: \\"id email\\")
 }
 
-\\"\\"\\"
-
-  Represents a set of fields. Grammatically, a field set
-  is a selection set minus the braces. This means it can
-  represent a single field \\"upc\\", multiple fields \\"id
-  countryCode\\", and even nested selection sets \\"id organization
-  { id }\\".
-  
-  [FieldSet - Apollo Federation 2.0 Subgraph Spec](https://www.apollographql.com/docs/federation/subgraph-spec/#scalar-fieldset)
-  
-\\"\\"\\"
 scalar _FieldSet"
 `;
 

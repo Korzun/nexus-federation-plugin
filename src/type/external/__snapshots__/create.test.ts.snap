@@ -5,30 +5,6 @@ exports[`external field configuration is NOT present is correctly added to the s
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
 type Query {
@@ -227,30 +203,6 @@ exports[`external field configuration is present is correctly added to the schem
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
 type Query {
@@ -449,30 +401,6 @@ exports[`external is correctly added to schema 1`] = `
 ### Do not make changes to this file directly
 
 
-\\"\\"\\"
-
-      **Apollo Federation 2.0 Subgraph**
-      https://www.apollographql.com/docs/federation/federated-types/federated-directives#external
-
-      Marks a field as owned by another service. This allows
-      \`Service A\` to use fields from \`Service B\` while also
-      knowing at runtime the types of that field. For example:
-
-      \`\`\`gql
-      # extended from the Users service
-      extend type User @key(fields: \\"id\\") {
-        id: ID! @external
-        email: String @external
-        reviews: [Review] @requires(fields: \\"email\\")
-      }
-      \`\`\`
-
-      This type extension in the \`Reviews Service\` extends the
-      \`User\` type from the \`Users Service\`. It extends it for
-      the purpose of adding a new field \`reviews\`, which returns
-      a list of \`Reviews\`.
-    
-\\"\\"\\"
 directive @external on FIELD_DEFINITION
 
 type Query {
